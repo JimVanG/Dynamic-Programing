@@ -7,11 +7,26 @@
  * Due: Saturday, December 7th, 11:59pm
  * 
  */
+
 public class RunLikeHell {
 
+	public static int maxGain(int[] blocks) {
+		
+
+		
+		return 0;
+	}
+	
+
+	public static double difficultyRating() {
+		return 4.0;
+	}
+
+	public static double hoursSpent() {
+		return 5;
+	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
 	}
 
