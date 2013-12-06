@@ -8,48 +8,71 @@
  * 
  */
 
+//Dynamic Programming assignment. Runs in O(n) time and O(n) space complexity.
 public class RunLikeHell {
 
+	// This is the Dynamic Programming AKA "DP" (*snicker*) method.
 	public static int maxGain(int[] blocks) {
 
-		return 0;
-	}
+		// handle cases where nothing is passed it
+		if (blocks == null || blocks.length == 0) {
+			return 0;
+		}
+		// handle cases where only one item is in the array.
+		if (blocks.length == 1) {
+			return blocks[0];
+		}
 
-	public static int maxGainRecDriver(int[] blocks) {
+		// this is the array that is used to keep track of all of the
+		// subproblem's answers.
+		int memo[] = new int[blocks.length];
 
-		return maxGainRec(blocks.length - 1, blocks, 0);
+		// start off the first two indices so we can jump start the for-loop and
+		// make some of the logic a little easier on ourselves.
+		memo[0] = blocks[0];
+		memo[1] = blocks[1];
 
-		// return 0;
+		for (int i = 2; i < blocks.length; i++) {
+			// if we aren't at the first cycle of the loop (second index) then
+			// find the Max of the second and third index of the array, and add
+			// it to this current index.
+			if (i != 2)
+				memo[i] += Math.max(memo[i - 2], memo[i - 3]) + blocks[i];
+			else
+				// if we are at the first cycle of the loop (second index) then
+				// we want to just add the first index (index 0) to it because
+				// it isn't possible to add the index directly before it (index
+				// 1).
+				memo[i] += blocks[i - 2] + blocks[i];
+		}
+
+		// return the largest index of the array, which will always be the last
+		// our second to last index
+		return (memo[blocks.length - 1] > memo[blocks.length - 2]) ? memo[blocks.length - 1]
+				: memo[blocks.length - 2];
 	}
 
 	public static int maxGainRec(int remainingItems, int[] blocks, int retVal) {
-
+		// return zero if we are out of bounds
 		if (remainingItems < 0) {
 			retVal += 0;
 			return 0;
 		}
-
-		// If the knapsack is empty, or if there are zero remaining items to
-		// choose from, we have no added value. Just return zero.
+		// return what's at zero if we're at zero
 		if (remainingItems == 0) {
 			retVal += blocks[remainingItems];
 			return retVal;
 		}
-
-		// If there's still room in our knapsack for this item, then we can
-		// either
-		// pick it up or leave it behind. We look at the best possible result
-		// for
-		// both of these paths, and then choose the one that maximizes our
-		// value.
+		// if the current block is larger than the one before it add it and
+		// decrement by two because we can't take the one directly before it.
 		if (blocks[remainingItems] > blocks[remainingItems - 1]) {
 			retVal += blocks[remainingItems]
 					+ maxGainRec(remainingItems - 2, blocks, retVal);
 			return retVal;
 		}
-		// If we can't pick up the kth item (which is at position (k-1) in the
-		// zero-indexed array), then our only choice is to maximize the value we
-		// can attain by choosing from the remaining (k-1) items.
+		// if the block before it is larger add that one and then decrement by
+		// three to skip the block that comes directly before because we aren't
+		// allowed to take that one.
 		else {
 			retVal += blocks[remainingItems - 1]
 					+ maxGainRec(remainingItems - 3, blocks, retVal);
@@ -57,51 +80,22 @@ public class RunLikeHell {
 		}
 	}
 
+	// Recursive function that get's called to call the actual recursive
+	// function. (must call this method)
+	public static int maxGainRecDriver(int[] blocks) {
+
+		return maxGainRec(blocks.length - 1, blocks, 0);
+	}
+
 	public static double difficultyRating() {
-		return 4.0;
+		return 3.3333333;
 	}
 
 	public static double hoursSpent() {
-		return 5;
+		return 6.5;
 	}
 
 	public static void main(String[] args) {
-		// int[] blocks;
-
-		// 52
-		int[] blocks1 = { 15, 3, 6, 17, 2, 1, 20 };
-		System.out.println(maxGainRecDriver(blocks1));
-
-		// 45
-		int[] blocks2 = { 9, 20, 13, 16, 9, 9, 6 };
-		System.out.println(maxGainRecDriver(blocks2));
-
-		// 45
-		int[] blocks3 = { 9, 20, 13, 16, 9, 6, 9 };
-		System.out.println(maxGainRecDriver(blocks3));
-
-		// 52
-		int[] blocks4 = { 15, 3, 6, 17, 2, 1, 20 };
-		System.out.println(maxGainRecDriver(blocks4));
-
-		// 67
-		int[] blocks5 = { 16, 10, 15, 12, 2, 20, 2, 16 };
-		System.out.println(maxGainRecDriver(blocks5));
-
-		// 30
-		int[] blocks6 = { 3, 5, 7, 3, 11, 5, 9, 8 };
-		System.out.println(maxGainRecDriver(blocks6));
-
-		// 56
-		int[] blocks7 = { 7, 10, 18, 16, 17, 12, 14, 9 };
-		System.out.println(maxGainRecDriver(blocks7));
-
-		// 11260
-		int[] blocks8 = { 573, 216, 451, 236, 42, 243, 743, 162, 317, 323, 4,
-				407, 230, 380, 177, 89, 596, 421, 643, 655, 735, 441, 408, 716,
-				449, 781, 28, 346, 241, 229, 697, 354, 685, 628, 535, 463, 578,
-				275, 786, 362, 488, 372, 68, 434, 687 };
-		System.out.println(maxGainRecDriver(blocks8));
 
 	}
 
