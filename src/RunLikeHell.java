@@ -24,7 +24,8 @@ public class RunLikeHell {
 		}
 
 		// this is the array that is used to keep track of all of the
-		// subproblem's answers.
+		// subproblem's sums. Using this memo array allows us to turn a normally
+		// slow run time into a fast O(n) runtime.
 		int memo[] = new int[blocks.length];
 
 		// start off the first two indices so we can jump start the for-loop and
@@ -47,11 +48,12 @@ public class RunLikeHell {
 		}
 
 		// return the largest index of the array, which will always be the last
-		// our second to last index
+		// or second to last index
 		return (memo[blocks.length - 1] > memo[blocks.length - 2]) ? memo[blocks.length - 1]
 				: memo[blocks.length - 2];
 	}
 
+	//This is the recursive solution to the problem.
 	public static int maxGainRec(int remainingItems, int[] blocks, int retVal) {
 		// return zero if we are out of bounds
 		if (remainingItems < 0) {
