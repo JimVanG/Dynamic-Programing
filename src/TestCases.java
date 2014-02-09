@@ -1,5 +1,3 @@
-// Sean Szumlanski
-// COP 3503, Fall 2013
 
 // TestCases.java
 // ==============
@@ -18,7 +16,6 @@
 // Keep in mind that these test cases are by no means comprehensive! You need to
 // create some of your own.
 
-import java.io.*;
 
 public class TestCases {
 

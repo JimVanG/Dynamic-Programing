@@ -14,7 +14,7 @@ public class RunLikeHell {
 	// This is the Dynamic Programming AKA "DP" (*snicker*) method.
 	public static int maxGain(int[] blocks) {
 
-		// handle cases where nothing is passed it
+		// handle cases where nothing is passed to it
 		if (blocks == null || blocks.length == 0) {
 			return 0;
 		}
@@ -48,12 +48,18 @@ public class RunLikeHell {
 		}
 
 		// return the largest index of the array, which will always be the last
-		// or second to last index
-		return (memo[blocks.length - 1] > memo[blocks.length - 2]) ? memo[blocks.length - 1]
-				: memo[blocks.length - 2];
+		// or second to last index, depending on where the algorithm started at
+		// in the array
+		return Math.max(memo[blocks.length - 1], memo[blocks.length - 2]);
+	}
+	
+	// Recursive function that get's called to call the actual recursive
+	// function. (must call this method)
+	public static int maxGainRecDriver(int[] blocks) {
+		return maxGainRec(blocks.length - 1, blocks, 0);
 	}
 
-	//This is the recursive solution to the problem.
+	// This is the recursive solution to the problem.
 	public static int maxGainRec(int remainingItems, int[] blocks, int retVal) {
 		// return zero if we are out of bounds
 		if (remainingItems < 0) {
@@ -82,13 +88,6 @@ public class RunLikeHell {
 		}
 	}
 
-	// Recursive function that get's called to call the actual recursive
-	// function. (must call this method)
-	public static int maxGainRecDriver(int[] blocks) {
-
-		return maxGainRec(blocks.length - 1, blocks, 0);
-	}
-
 	public static double difficultyRating() {
 		return 3.3333333;
 	}
@@ -96,9 +95,4 @@ public class RunLikeHell {
 	public static double hoursSpent() {
 		return 6.5;
 	}
-
-	public static void main(String[] args) {
-
-	}
-
 }
