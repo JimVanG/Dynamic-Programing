@@ -1,5 +1,5 @@
 /*
- * James V
+ * JV
  * COP 3503 : Computer Science II
  * Run Like Hell 
  * Due: Saturday, December 7th, 11:59pm
