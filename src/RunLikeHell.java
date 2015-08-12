@@ -9,7 +9,7 @@
 //Dynamic Programming assignment. Runs in O(n) time and O(n) space complexity.
 public class RunLikeHell {
 
-	// This is the Dynamic Programming AKA "DP" (*snicker*) method.
+	// This is the Dynamic Programming method.
 	public static int maxGain(int[] blocks) {
 
 		// handle cases where nothing is passed to it
@@ -84,13 +84,5 @@ public class RunLikeHell {
 					+ maxGainRec(remainingItems - 3, blocks, retVal);
 			return retVal;
 		}
-	}
-
-	public static double difficultyRating() {
-		return 3.3333333;
-	}
-
-	public static double hoursSpent() {
-		return 6.5;
 	}
 }
